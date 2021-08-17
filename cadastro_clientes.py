@@ -1,6 +1,7 @@
 from PyQt5 import uic, QtWidgets
 import pyautogui as pya
 import mysql.connector
+from reportlab.pdfgen import canvas
 
 
 numero_id =0
@@ -20,6 +21,35 @@ if mydb.is_connected():
     linha = cursor.fetchone()
     print("Conectado ao banco de dados ", linha)
 
+
+
+def gerar_pdf():
+
+    mycursor = mydb.cursor()
+    sql = "SELECT * FROM cliente"
+    mycursor.execute(sql)
+    dados_lidos = mycursor.fetchall()
+
+    y = 0
+    pdf = canvas.Canvas("cadastro_clientes.pdf")
+    pdf.setFont("Times-Bold", 25)
+    pdf.drawString(100, 800, "Relatorio de clientes cadastrados")
+    pdf.setFont("Times-Bold", 18)
+
+    pdf.drawString(10, 750, "ID")
+    pdf.drawString(110, 750, "NOME")
+    pdf.drawString(410, 750, "CPF")
+
+
+    for i in range(0, len(dados_lidos)):
+        y = y + 50
+        pdf.drawString(10, 750 - y, str(dados_lidos[i][0]))
+        pdf.drawString(110, 750 - y, str(dados_lidos[i][1]))
+        pdf.drawString(410, 750 - y, str(dados_lidos[i][4]))
+
+
+    pdf.save()
+    pya.alert("PDF FOI GERADO COM SUCESSO!")
 
 def funcao_principal():
 
@@ -132,6 +162,7 @@ formulario = uic.loadUi('formulario.ui')
 formulario2 = uic.loadUi('formulario2.ui')
 formulario.pushButton.clicked.connect(funcao_principal)
 formulario.pushButton_2.clicked.connect(chama_segunda_tela)
+formulario2.pushButton_4.clicked.connect(gerar_pdf)
 formulario.comboBox.addItems(['AC', 'AL', 'AM', 'AP', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MG', 'MS', 'MT', 'PA', 'PB', 'PE', 'PI', 'PR', 'RJ', 'RN', 'RO', 'RR', 'RS', 'SC', 'SE', 'SP', 'TO'])
 
 
