@@ -2,19 +2,20 @@ from PyQt5 import uic, QtWidgets
 import pyautogui as pya
 import mysql.connector
 
+
 numero_id =0
 
 
-banco = mysql.connector.connect(
+mydb = mysql.connector.connect(
     host='localhost',
     user='root',
     passwd='',
     database='sistema'
 )
-if banco.is_connected():
-    db_info = banco.get_server_info()
+if mydb.is_connected():
+    db_info = mydb.get_server_info()
     print('Conectado ao servidor MySQL versão',db_info)
-    cursor = banco.cursor()
+    cursor = mydb.cursor()
     cursor.execute("select database();")
     linha = cursor.fetchone()
     print("Conectado ao banco de dados ", linha)
@@ -88,11 +89,13 @@ def funcao_principal():
     print('E-mail', email)
 
 
-    cursor = banco.cursor()
-    comando_SQL = 'INSERT INTO cliente (nome,est_civil,rg,cpf,sexo,endereco,numero,complemento,municipio,bairro,cep,uf,telefone,celular,email) VALUES (%S,%S,%S,%S,%S,%S,%S,%S,%S,%S,%S,%S,%S,%S,%S)'
-    dados = (str(nome), str(est_civil), str(rg), str(cpf), sexo, str(endereco), str(numero), str(complemento), str(municipio), str(bairro), str(cep), str(uf), str(telefone), str(celular), str(email))
-    cursor.execute(comando_SQL, dados)
-    banco.commit()
+    mycursor = mydb.cursor()
+    sql = "INSERT INTO cliente (nome,est_civil,rg,cpf,sexo,endereco,numero,complemento,municipio,bairro,cep,uf,telefone,celular,email) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+    val = (str(nome), str(est_civil), str(rg), str(cpf), str(sexo), str(endereco), str(numero), str(complemento), str(municipio), str(bairro), str(cep), str(uf), str(telefone), str(celular), str(email))
+    mycursor.execute(sql, val)
+    mydb.commit()
+    print(cursor.rowcount, "Registro inserido.")
+    pya.alert('Cadastrado com sucesso!')
 
     formulario.lineEdit.setText('')
     formulario.lineEdit_3.setText('')
