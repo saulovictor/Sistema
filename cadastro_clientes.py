@@ -111,12 +111,28 @@ def funcao_principal():
     formulario.lineEdit_16.setText('')
     formulario.lineEdit_17.setText('')
 
+def chama_segunda_tela():
+    formulario2.show()
 
+    mycursor = mydb.cursor()
+    sql = "SELECT * FROM cliente"
+    mycursor.execute(sql)
+    dados_lidos = mycursor.fetchall()
+
+
+    formulario2.tableWidget.setRowCount(len(dados_lidos))
+    formulario2.tableWidget.setColumnCount(15)
+
+    for i in range(0, len(dados_lidos)):
+        for j in range(0, 15):
+            formulario2.tableWidget.setItem(i, j, QtWidgets.QTableWidgetItem(str(dados_lidos[i][j])))
 
 app= QtWidgets.QApplication([])
 formulario = uic.loadUi('formulario.ui')
-formulario.comboBox.addItems(['AC', 'AL', 'AM', 'AP', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MG', 'MS', 'MT', 'PA', 'PB', 'PE', 'PI', 'PR', 'RJ', 'RN', 'RO', 'RR', 'RS', 'SC', 'SE', 'SP', 'TO'])
+formulario2 = uic.loadUi('formulario2.ui')
 formulario.pushButton.clicked.connect(funcao_principal)
+formulario.pushButton_2.clicked.connect(chama_segunda_tela)
+formulario.comboBox.addItems(['AC', 'AL', 'AM', 'AP', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MG', 'MS', 'MT', 'PA', 'PB', 'PE', 'PI', 'PR', 'RJ', 'RN', 'RO', 'RR', 'RS', 'SC', 'SE', 'SP', 'TO'])
 
 
 
