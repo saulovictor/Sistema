@@ -447,6 +447,16 @@
      </rect>
     </property>
    </widget>
+   <widget class="QLineEdit" name="lineEdit_7">
+    <property name="geometry">
+     <rect>
+      <x>390</x>
+      <y>250</y>
+      <width>71</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
    <widget class="QLineEdit" name="lineEdit_6">
     <property name="geometry">
      <rect>
@@ -456,15 +466,8 @@
       <height>20</height>
      </rect>
     </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit_7">
-    <property name="geometry">
-     <rect>
-      <x>390</x>
-      <y>250</y>
-      <width>71</width>
-      <height>20</height>
-     </rect>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);</string>
     </property>
    </widget>
   </widget>

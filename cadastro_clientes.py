@@ -53,34 +53,55 @@ def editar():
     tela_editar.lineEdit_16.setText(str(cliente[0][14]))
     tela_editar.lineEdit_17.setText(str(cliente[0][15]))
 
-
-
     numero_id = valor_id
 
 def salvar_valor_editado():
     global numero_id
 
-    nome = tela_cadastro_cliente.lineEdit.text()
-    est_civil = tela_cadastro_cliente.lineEdit_3.text()
-    rg = tela_cadastro_cliente.lineEdit_4.text()
-    cpf = tela_cadastro_cliente.lineEdit_5.text()
-    sexo = tela_cadastro_cliente.lineEdit_6.text()
-    endereco = tela_cadastro_cliente.lineEdit_9.text()
-    numero = tela_cadastro_cliente.lineEdit_10.text()
-    complemento = tela_cadastro_cliente.lineEdit_11.text()
-    municipio = tela_cadastro_cliente.lineEdit_12.text()
-    bairro = tela_cadastro_cliente.lineEdit_13.text()
-    cep = tela_cadastro_cliente.lineEdit_14.text()
-    uf = tela_cadastro_cliente.lineEdit_7.text()
-    telefone = tela_cadastro_cliente.lineEdit_15.text()
-    celular = tela_cadastro_cliente.lineEdit_16.text()
-    email = tela_cadastro_cliente.lineEdit_17.text()
+    nome = tela_editar.lineEdit.text()
+    est_civil = tela_editar.lineEdit_3.text()
+
+    rg = tela_editar.lineEdit_4.text()
+    if len(rg) < 7:
+        rg = rg.zfill(7)
+    rg = '{}.{}.{}'.format(rg[:1], rg[1:4], rg[4:7])
+
+    cpf = tela_editar.lineEdit_5.text()
+    if len(cpf) < 11:
+        cpf = cpf.zfill(11)
+    cpf = '{}.{}.{}-{}'.format(cpf[:3], cpf[3:6], cpf[6:9], cpf[9:])
+
+    sexo = tela_editar.lineEdit_6.text()
+
+    endereco = tela_editar.lineEdit_9.text()
+    numero = tela_editar.lineEdit_10.text()
+    complemento = tela_editar.lineEdit_11.text()
+    municipio = tela_editar.lineEdit_12.text()
+    bairro = tela_editar.lineEdit_13.text()
+
+    cep = tela_editar.lineEdit_14.text()
+    if len(cep) < 8:
+        cep = cep.zfill(8)
+    cep = '{}-{}'.format(cep[:5], cep[5:8])
+
+    uf = tela_editar.lineEdit_6.text()
+
+    telefone = tela_editar.lineEdit_15.text()
+    if len(telefone) < 8:
+        telefone = telefone.zfill(8)
+    telefone = '{}-{}'.format(telefone[:4], telefone[4:8])
+
+    celular = tela_editar.lineEdit_16.text()
+    if len(celular) < 11:
+        celular = celular.zfill(11)
+    celular = '({}) {}{}-{}'.format(celular[:2], celular[2:3], celular[3:7], celular[7:11])
+
+    email = tela_editar.lineEdit_17.text()
 
 
     mycursor = mydb.cursor()
-    mycursor.execute("UPDATE cliente SET nome ='{}',est_civil ='{}',rg ='{}',cpf ='{}',sexo ='{}',endereco ='{}',numero ='{}',complemento ='{}',municipio ='{}',bairro ='{}',cep ='{}',uf ='{}',telefone ='{}',celular ='{}',email ='{}' WHERE id_cliente ='{}'".format(nome,est_civil,rg,cpf,sexo,endereco,numero,complemento,municipio,bairro,cep,uf,telefone,celular,email,numero_id))
+    mycursor.execute("UPDATE cliente SET nome ='{}',est_civil ='{}',rg ='{}',cpf ='{}',sexo = '{}',endereco ='{}',numero ='{}',complemento ='{}',municipio ='{}',bairro ='{}',cep ='{}', uf = '{}',telefone ='{}',celular ='{}',email ='{}' WHERE id_cliente ={}".format(nome,est_civil,rg,cpf,sexo,endereco,numero,complemento,municipio,bairro,cep,uf,telefone,celular,email,numero_id))
     mydb.commit()
-
     tela_editar.close()
     tela_listar.close()
     chama_segunda_tela()
@@ -173,23 +194,6 @@ def funcao_principal():
 
 
 
-    print('Nome:',nome)
-    print('Est. Civil:', est_civil)
-    print('RG:', rg)
-    print('CPF:', cpf)
-    print('Sexo: ' + sexo)
-    print('Endereço:', endereco)
-    print('Numero:', numero)
-    print('Complemento:', complemento)
-    print('Municipio:', municipio)
-    print('Bairro:', bairro)
-    print('CEP:', cep)
-    print('UF: ' + uf)
-    print('Telefone:', telefone)
-    print('Celular:', celular)
-    print('E-mail', email)
-
-
     mycursor = mydb.cursor()
     sql = "INSERT INTO cliente (nome,est_civil,rg,cpf,sexo,endereco,numero,complemento,municipio,bairro,cep,uf,telefone,celular,email) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
     val = (str(nome), str(est_civil), str(rg), str(cpf), str(sexo), str(endereco), str(numero), str(complemento), str(municipio), str(bairro), str(cep), str(uf), str(telefone), str(celular), str(email))
@@ -202,14 +206,12 @@ def funcao_principal():
     tela_cadastro_cliente.lineEdit_3.setText('')
     tela_cadastro_cliente.lineEdit_4.setText('')
     tela_cadastro_cliente.lineEdit_5.setText('')
-
     tela_cadastro_cliente.lineEdit_9.setText('')
     tela_cadastro_cliente.lineEdit_10.setText('')
     tela_cadastro_cliente.lineEdit_11.setText('')
     tela_cadastro_cliente.lineEdit_12.setText('')
     tela_cadastro_cliente.lineEdit_13.setText('')
     tela_cadastro_cliente.lineEdit_14.setText('')
-
     tela_cadastro_cliente.lineEdit_15.setText('')
     tela_cadastro_cliente.lineEdit_16.setText('')
     tela_cadastro_cliente.lineEdit_17.setText('')

@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(160, 160, 160);</string>
+   <string notr="true"/>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QTableWidget" name="tableWidget">
@@ -234,9 +234,9 @@
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>150</x>
+      <x>225</x>
       <y>340</y>
-      <width>75</width>
+      <width>80</width>
       <height>23</height>
      </rect>
     </property>
@@ -245,22 +245,6 @@
     </property>
     <property name="text">
      <string>Editar</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_2">
-    <property name="geometry">
-     <rect>
-      <x>230</x>
-      <y>340</y>
-      <width>75</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(240, 240, 240);</string>
-    </property>
-    <property name="text">
-     <string>Salvar</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_3">
