@@ -131,18 +131,22 @@ def gerar_pdf():
     pdf = canvas.Canvas("cadastro_clientes.pdf")
     pdf.setFont("Times-Bold", 25)
     pdf.drawString(100, 800, "Relatorio de clientes cadastrados")
-    pdf.setFont("Times-Bold", 18)
+    pdf.setFont("Times-Bold", 10)
 
     pdf.drawString(10, 750, "ID")
-    pdf.drawString(110, 750, "NOME")
-    pdf.drawString(410, 750, "CPF")
+    pdf.drawString(100, 750, "NOME")
+    pdf.drawString(200, 750, "CPF")
+    pdf.drawString(300, 750, "CELULAR")
+    pdf.drawString(400, 750, "EMAIL")
 
 
     for i in range(0, len(dados_lidos)):
         y = y + 50
         pdf.drawString(10, 750 - y, str(dados_lidos[i][0]))
-        pdf.drawString(110, 750 - y, str(dados_lidos[i][1]))
-        pdf.drawString(410, 750 - y, str(dados_lidos[i][4]))
+        pdf.drawString(100, 750 - y, str(dados_lidos[i][1]))
+        pdf.drawString(200, 750 - y, str(dados_lidos[i][4]))
+        pdf.drawString(300, 750 - y, str(dados_lidos[i][14]))
+        pdf.drawString(400, 750 - y, str(dados_lidos[i][15]))
 
 
     pdf.save()
