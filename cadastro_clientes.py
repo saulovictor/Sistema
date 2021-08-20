@@ -64,51 +64,28 @@ def salvar_valor_editado():
 
     nome = tela_editar.lineEdit.text()
     est_civil = tela_editar.lineEdit_3.text()
-
     rg = tela_editar.lineEdit_4.text()
-    if len(rg) < 7:
-        rg = rg.zfill(7)
-    rg = '{}.{}.{}'.format(rg[:1], rg[1:4], rg[4:7])
-
     cpf = tela_editar.lineEdit_5.text()
-    if len(cpf) < 11:
-        cpf = cpf.zfill(11)
-    cpf = '{}.{}.{}-{}'.format(cpf[:3], cpf[3:6], cpf[6:9], cpf[9:])
-
     sexo = tela_editar.lineEdit_6.text()
-
     endereco = tela_editar.lineEdit_9.text()
     numero = tela_editar.lineEdit_10.text()
     complemento = tela_editar.lineEdit_11.text()
     municipio = tela_editar.lineEdit_12.text()
     bairro = tela_editar.lineEdit_13.text()
-
     cep = tela_editar.lineEdit_14.text()
-    if len(cep) < 8:
-        cep = cep.zfill(8)
-    cep = '{}-{}'.format(cep[:5], cep[5:8])
-
     uf = tela_editar.lineEdit_6.text()
-
     telefone = tela_editar.lineEdit_15.text()
-    if len(telefone) < 8:
-        telefone = telefone.zfill(8)
-    telefone = '{}-{}'.format(telefone[:4], telefone[4:8])
-
     celular = tela_editar.lineEdit_16.text()
-    if len(celular) < 11:
-        celular = celular.zfill(11)
-    celular = '({}) {}{}-{}'.format(celular[:2], celular[2:3], celular[3:7], celular[7:11])
-
     email = tela_editar.lineEdit_17.text()
 
 
     mycursor = mydb.cursor()
-    mycursor.execute("UPDATE cliente SET nome ='{}',est_civil ='{}',rg ='{}',cpf ='{}',sexo = '{}',endereco ='{}',numero ='{}',complemento ='{}',municipio ='{}',bairro ='{}',cep ='{}', uf = '{}',telefone ='{}',celular ='{}',email ='{}' WHERE id_cliente ={}".format(nome,est_civil,rg,cpf,sexo,endereco,numero,complemento,municipio,bairro,cep,uf,telefone,celular,email,numero_id))
+    mycursor.execute("UPDATE cliente SET nome ='{}',est_civil ='{}',rg ='{}',cpf ='{}',sexo = '{}',endereco ='{}',numero ='{}',complemento ='{}',municipio ='{}',bairro ='{}',cep ='{}',uf = '{}',telefone ='{}',celular ='{}',email ='{}' WHERE id_cliente ={}".format(nome,est_civil,rg,cpf,sexo,endereco,numero,complemento,municipio,bairro,cep,uf,telefone,celular,email,numero_id))
     mydb.commit()
     tela_editar.close()
     tela_listar.close()
     chama_segunda_tela()
+    pya.alert("REGISTRO SALVO COM SUCESSO!")
 
 #Função excluir linha da tabela
 def excluir():
@@ -123,6 +100,7 @@ def excluir():
     valor_id = dados_lidos[linha][0]
     sql2 = "DELETE FROM cliente WHERE id_cliente=" + str(valor_id)
     mycursor.execute(sql2)
+    pya.alert("REGISTRO EXCLUIDO COM SUCESSO!")
 
 #Função gerar arquivo PDF
 def gerar_pdf():
