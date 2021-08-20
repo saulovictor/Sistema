@@ -1,18 +1,20 @@
+#Cadastro de Clientes
 from PyQt5 import uic, QtWidgets
 import pyautogui as pya
 import mysql.connector
 from reportlab.pdfgen import canvas
 
+#variavel com id 0
+numero_id = 0
 
-numero_id =0
-
-
+#Conexão com banco de dados
 mydb = mysql.connector.connect(
     host='localhost',
     user='root',
     passwd='',
     database='sistema'
 )
+#Checo se o banco foi conectado
 if mydb.is_connected():
     db_info = mydb.get_server_info()
     print('Conectado ao servidor MySQL versão',db_info)
@@ -21,6 +23,7 @@ if mydb.is_connected():
     linha = cursor.fetchone()
     print("Conectado ao banco de dados ", linha)
 
+#Função Editar
 def editar():
     global numero_id
 
@@ -55,6 +58,7 @@ def editar():
 
     numero_id = valor_id
 
+#Função Salvar dados editador
 def salvar_valor_editado():
     global numero_id
 
@@ -106,7 +110,7 @@ def salvar_valor_editado():
     tela_listar.close()
     chama_segunda_tela()
 
-
+#Função excluir linha da tabela
 def excluir():
 
     linha = tela_listar.tableWidget.currentRow()
@@ -120,6 +124,7 @@ def excluir():
     sql2 = "DELETE FROM cliente WHERE id_cliente=" + str(valor_id)
     mycursor.execute(sql2)
 
+#Função gerar arquivo PDF
 def gerar_pdf():
 
     mycursor = mydb.cursor()
@@ -134,7 +139,7 @@ def gerar_pdf():
     pdf.setFont("Times-Bold", 10)
 
     pdf.drawString(10, 750, "ID")
-    pdf.drawString(100, 750, "NOME")
+    pdf.drawString(50, 750, "NOME")
     pdf.drawString(200, 750, "CPF")
     pdf.drawString(300, 750, "CELULAR")
     pdf.drawString(400, 750, "EMAIL")
@@ -143,7 +148,7 @@ def gerar_pdf():
     for i in range(0, len(dados_lidos)):
         y = y + 50
         pdf.drawString(10, 750 - y, str(dados_lidos[i][0]))
-        pdf.drawString(100, 750 - y, str(dados_lidos[i][1]))
+        pdf.drawString(50, 750 - y, str(dados_lidos[i][1]))
         pdf.drawString(200, 750 - y, str(dados_lidos[i][4]))
         pdf.drawString(300, 750 - y, str(dados_lidos[i][14]))
         pdf.drawString(400, 750 - y, str(dados_lidos[i][15]))
@@ -153,7 +158,7 @@ def gerar_pdf():
     pya.alert("PDF FOI GERADO COM SUCESSO!")
 
 
-
+#Função principal tela de cadastro de clientes
 def funcao_principal():
 
     nome = tela_cadastro_cliente.lineEdit.text()
@@ -220,6 +225,7 @@ def funcao_principal():
     tela_cadastro_cliente.lineEdit_16.setText('')
     tela_cadastro_cliente.lineEdit_17.setText('')
 
+#Função para chamar tela de listagem de cliente
 def chama_segunda_tela():
     tela_listar.show()
 
@@ -247,6 +253,7 @@ tela_listar.pushButton_3.clicked.connect(excluir)
 tela_listar.pushButton_4.clicked.connect(gerar_pdf)
 tela_editar.pushButton.clicked.connect(salvar_valor_editado)
 
+#Aqui estão os valores de cada comboBOx
 tela_cadastro_cliente.comboBox.addItems(['AC', 'AL', 'AM', 'AP', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MG', 'MS', 'MT', 'PA', 'PB', 'PE', 'PI', 'PR', 'RJ', 'RN', 'RO', 'RR', 'RS', 'SC', 'SE', 'SP', 'TO'])
 tela_cadastro_cliente.comboBox_2.addItems(['Masculino', 'Feminino'])
 
