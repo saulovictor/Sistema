@@ -134,7 +134,7 @@ def gerar_pdf():
 
 
     pdf.save()
-    pya.alert("PDF FOI GERADO COM SUCESSO!")
+    pya.alert("PDF GERADO COM SUCESSO!")
 
 
 #Função principal tela de cadastro de clientes
@@ -224,7 +224,9 @@ def chama_segunda_tela():
 
 #Função chama tela cadastro
 def chama_tela_cadastro():
+
     tela_cadastro_cliente.show()
+    tela_cadastro_cliente.lineEdit.setFocus()
 
 app= QtWidgets.QApplication([])
 tela_principal = uic.loadUi('tela_principal.ui')
