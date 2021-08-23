@@ -100,7 +100,8 @@ def excluir():
     valor_id = dados_lidos[linha][0]
     sql2 = "DELETE FROM cliente WHERE id_cliente=" + str(valor_id)
     mycursor.execute(sql2)
-    pya.alert("REGISTRO EXCLUIDO COM SUCESSO!")
+    mydb.commit()
+    pya.alert("REGISTRO EXCLUIDO COM SUCCESSO")
 
 #Função gerar arquivo PDF
 def gerar_pdf():
