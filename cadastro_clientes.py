@@ -39,7 +39,7 @@ def editar():
     cliente = mycursor.fetchall()
     tela_editar.show()
 
-    tela_editar.lineEdit_2.setText(str(cliente[0][0]))
+    #tela_editar.lineEdit_2.setText(str(cliente[0][0]))
     tela_editar.lineEdit.setText(str(cliente[0][1]))
     tela_editar.lineEdit_3.setText(str(cliente[0][2]))
     tela_editar.lineEdit_4.setText(str(cliente[0][3]))
@@ -73,7 +73,7 @@ def salvar_valor_editado():
     municipio = tela_editar.lineEdit_12.text()
     bairro = tela_editar.lineEdit_13.text()
     cep = tela_editar.lineEdit_14.text()
-    uf = tela_editar.lineEdit_6.text()
+    uf = tela_editar.lineEdit_7.text()
     telefone = tela_editar.lineEdit_15.text()
     celular = tela_editar.lineEdit_16.text()
     email = tela_editar.lineEdit_17.text()
@@ -221,21 +221,32 @@ def chama_segunda_tela():
         for j in range(0, 16):
             tela_listar.tableWidget.setItem(i, j, QtWidgets.QTableWidgetItem(str(dados_lidos[i][j])))
 
+
+#Função chama tela cadastro
+def chama_tela_cadastro():
+    tela_cadastro_cliente.show()
+
 app= QtWidgets.QApplication([])
+tela_principal = uic.loadUi('tela_principal.ui')
 tela_cadastro_cliente = uic.loadUi('tela_cadastro_cliente.ui')
 tela_listar = uic.loadUi('tela_listar.ui')
 tela_editar = uic.loadUi('tela_editar.ui')
-tela_cadastro_cliente.pushButton.clicked.connect(funcao_principal)
-tela_cadastro_cliente.pushButton_2.clicked.connect(chama_segunda_tela)
+
+
+tela_principal.pushButton.clicked.connect(chama_tela_cadastro)
+tela_principal.pushButton_2.clicked.connect(chama_segunda_tela)
+
+#tela_cadastro_cliente.pushButton_2.clicked.connect(chama_segunda_tela)
+
 tela_listar.pushButton.clicked.connect(editar)
 tela_listar.pushButton_3.clicked.connect(excluir)
 tela_listar.pushButton_4.clicked.connect(gerar_pdf)
+
 tela_editar.pushButton.clicked.connect(salvar_valor_editado)
 
 #Aqui estão os valores de cada comboBOx
 tela_cadastro_cliente.comboBox.addItems(['AC', 'AL', 'AM', 'AP', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MG', 'MS', 'MT', 'PA', 'PB', 'PE', 'PI', 'PR', 'RJ', 'RN', 'RO', 'RR', 'RS', 'SC', 'SE', 'SP', 'TO'])
 tela_cadastro_cliente.comboBox_2.addItems(['Masculino', 'Feminino'])
 
-
-tela_cadastro_cliente.show()
+tela_principal.show()
 app.exec()
