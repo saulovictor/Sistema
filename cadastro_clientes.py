@@ -204,6 +204,8 @@ def funcao_principal():
     tela_cadastro_cliente.lineEdit_16.setText('')
     tela_cadastro_cliente.lineEdit_17.setText('')
 
+    tela_cadastro_cliente.lineEdit.setFocus()
+
 #Função para chamar tela de listagem de cliente
 def chama_segunda_tela():
     tela_listar.show()
@@ -234,6 +236,9 @@ tela_principal = uic.loadUi('tela_principal.ui')
 tela_cadastro_cliente = uic.loadUi('tela_cadastro_cliente.ui')
 tela_listar = uic.loadUi('tela_listar.ui')
 tela_editar = uic.loadUi('tela_editar.ui')
+
+#Botão tela cadastro salvar registro no banco
+tela_cadastro_cliente.pushButton.clicked.connect(funcao_principal)
 
 #Botões da tela principal cham tela cadastro e tela listar
 tela_principal.pushButton.clicked.connect(chama_tela_cadastro)
